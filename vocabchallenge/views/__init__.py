@@ -1,0 +1,3 @@
+import vocabchallenge.views.index
+import vocabchallenge.views.leaderboard
+import vocabchallenge.views.feedback
