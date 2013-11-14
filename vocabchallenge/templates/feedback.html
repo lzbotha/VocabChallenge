@@ -1,4 +1,8 @@
 {% extends "template.html" %}
 {% block body %}
 	<h1>Feedback Page</h1>
+	<form action="/feedback" method="post">
+    <textarea name="feedback"></textarea>
+    <input type="submit" />
+</form>
 {% endblock %}
