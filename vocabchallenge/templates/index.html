@@ -1,5 +1,5 @@
-{% extends "template.html" %}
-{% block body %}
+<!doctype html>
+<html>
 	{% with messages = get_flashed_messages() %}
 		{% if messages %}
 			{% for message in messages %}
@@ -7,5 +7,11 @@
 			{% endfor %}
 		{% endif %}
 	{% endwith %}
-	<h1>INDEX PAGE</h1>
-{% endblock %}
+	Welcome username
+	<br>
+	Remember to practice every day in order to improve your vocabulary to the max!
+	<br>
+	
+
+	<a href="/leaderboard">Leaderboard</a> | <a href="/feedback">Feedback</a> | <a href="/change_difficulty">Change Difficulty</a>
+</html>
