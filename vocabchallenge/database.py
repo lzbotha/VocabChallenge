@@ -17,5 +17,5 @@ def teardown_request(exception):
 		db.close()
 
 def feedback(username, userid, feedback):
-	g.db.execute('INSERT INTO feedback values(null, datetime(\'now\'), ' + username + ',' + userid + ',' + '\''+feedback+'\'' + ')')
+	g.db.execute('INSERT INTO feedback values(null, datetime(\'now\'), ' + '\''+username+'\'' + ',' + userid + ',' + '\''+feedback+'\'' + ')')
 	g.db.commit()
