@@ -1,21 +1,24 @@
-import sqlite3
+import psycopg2
 from flask import g, request, session
 from vocabchallenge import app
 
 def connect_db():
-	print app.config['DATABASE']
-	return sqlite3.connect(app.config['DATABASE'])
+    database = psycopg2.connect('dbname=%s user=%s' % (app.config['DATABASE_NAME'], app.config['DATABASE_USER']))
+    return database
+
+def disconnect_db():
+    g.database.commit()
+    g.database.close()
 
 @app.before_request
 def before_request():
-	g.db = connect_db()
+    g.database = connect_db()
 
 @app.teardown_request
 def teardown_request(exception):
-	db = getattr(g, 'db', None)
-	if db is not None:
-		db.close()
+    disconnect_db()
 
 def feedback(username, userid, feedback):
-	g.db.execute('INSERT INTO feedback values(null, datetime(\'now\'), ' + '\''+username+'\'' + ',' + userid + ',' + '\''+feedback+'\'' + ')')
-	g.db.commit()
+    cur = g.database.cursor()
+    cur.execute('INSERT INTO feedback (datetime,username,userid,feedback) VALUES(\'now\',%s,%s,%s)',(username,userid,feedback))
+    cur.close()
