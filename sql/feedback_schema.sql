@@ -1,7 +1,7 @@
 create table feedback(
-	id integer primary key autoincrement,
-	datetime text not null,
-	username varchar not null,
-	userid integer not null,
-	feedback text
+	id SERIAL PRIMARY KEY,
+	datetime TIMESTAMP NOT NULL,
+	username VARCHAR NOT NULL,
+	userid INT NOT NULL,
+	feedback TEXT
 );
