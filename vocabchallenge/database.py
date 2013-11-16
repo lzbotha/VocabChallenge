@@ -22,3 +22,5 @@ def feedback(username, userid, feedback):
     cur = g.database.cursor()
     cur.execute('INSERT INTO feedback (datetime,username,userid,feedback) VALUES(\'now\',%s,%s,%s)',(username,userid,feedback))
     cur.close()
+
+# http://toolserver.org/~enwikt/definitions/ wikitionary definition dump
