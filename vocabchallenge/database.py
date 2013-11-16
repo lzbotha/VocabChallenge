@@ -23,4 +23,11 @@ def feedback(username, userid, feedback):
     cur.execute('INSERT INTO feedback (datetime,username,userid,feedback) VALUES(\'now\',%s,%s,%s)',(username,userid,feedback))
     cur.close()
 
+def get_entry(difficulty):
+    cur = g.database.cursor()
+    cur.execute('SELECT * FROM words ORDER BY RANDOM() LIMIT 1')
+    word, definition = cur.fetchone()
+    cur.close()
+    return (word, definition)
+
 # http://toolserver.org/~enwikt/definitions/ wikitionary definition dump

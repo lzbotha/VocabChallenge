@@ -1,0 +1,14 @@
+{% extends "template.html" %}
+{% block body %}
+    Game screen
+
+    <p>{{ word }}</p>
+    <p>{{ definition }}</p>
+
+    <p>Guess the word twat</p>
+    
+    <form action="/game" method="post">
+        <textarea name="wordguess"></textarea>
+        <input type="submit" />
+    </form>
+{% endblock %}
