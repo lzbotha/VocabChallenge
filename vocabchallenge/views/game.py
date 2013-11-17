@@ -4,6 +4,7 @@ from vocabchallenge import app, database
 @app.route('/game', methods=('post', 'get'))
 def game():
     
+    #if the player is currently in a game
     if session.pop('ingame',False):
 
         #word and definition retrieved from database
@@ -38,7 +39,9 @@ def game():
             session['word'], session['definition'] = database.get_entry(0)
             return render_template('game.html', word=session['word'], definition=session['definition'])
 
+    #if the player is not yet in a game initialize variables for a new game
     else:
+        #note that this value is set to true before the user is redirected to /game. This is so that the game is ended if the user quits the game (consider implementing this in a better way)
         session['ingame'] = True
         session['score'] = 0
         session['lives'] = 3
