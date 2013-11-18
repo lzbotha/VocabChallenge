@@ -1,8 +1,9 @@
 from flask import Flask, render_template, redirect, request, session
 from vocabchallenge import app, database
 
-@app.route('/game', methods=('post', 'get'))
-def game():    
+@app.route('/game/<lang>', methods=('post', 'get'))
+def game(lang):
+    print lang    
     #if the player is currently in a game
     if session.pop('ingame',False):
 
@@ -17,7 +18,7 @@ def game():
                 if wordguess == session.pop('word'):
                     session['ingame'] = True
                     session['score'] += 1
-                    return redirect('/game')
+                    return redirect('/game/'+lang)
 
                 #user has incorrectly guessed the word
                 else:
@@ -28,18 +29,18 @@ def game():
                         return redirect('/game_ended')
                         
                     session['ingame'] = True
-                    return redirect('/game')
+                    return redirect('/game/'+lang)
 
             #user has not yet submitted feedback
             else:
                 session['ingame'] = True
-                return render_template('game.html', word=session['word'], definition=session['definition'])
+                return render_template('game.html', word=session['word'], definition=session['definition'], lang=lang)
         
         #word and definition not yet retrieved from database
         else:
             session['ingame'] = True
             session['word'], session['definition'] = database.get_entry(0)
-            return render_template('game.html', word=session['word'], definition=session['definition'])
+            return render_template('game.html', word=session['word'], definition=session['definition'], lang=lang)
 
     #if the player is not yet in a game initialize variables for a new game
     else:
@@ -49,4 +50,4 @@ def game():
         session['lives'] = 3
         #so each new quiz starts with a new word
         session.pop('word', None)
-        return redirect('/game')
+        return redirect('/game/'+lang)
