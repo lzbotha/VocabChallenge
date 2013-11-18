@@ -39,7 +39,7 @@ def game(lang):
         #word and definition not yet retrieved from database
         else:
             session['ingame'] = True
-            session['word'], session['definition'] = database.get_entry(0)
+            session['word'], session['definition'] = database.get_entry(lang)
             return render_template('game.html', word=session['word'], definition=session['definition'], lang=lang)
 
     #if the player is not yet in a game initialize variables for a new game
