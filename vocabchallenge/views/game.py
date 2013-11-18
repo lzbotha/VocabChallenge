@@ -10,6 +10,7 @@ def game():
         #word and definition retrieved from database
         if 'word' in session:
 
+
             #user has submitted feedback
             if 'wordguess' in request.form:
                 wordguess = request.form['wordguess']
@@ -22,11 +23,14 @@ def game():
 
                 #user has incorrectly guessed the word
                 else:
-                    if session['lives'] > 0:
-                        session['lives'] -= 1
-                        session['ingame'] = True
-                        return redirect('/game')
-                    return redirect('/game_ended')
+                    session['lives'] -= 1
+
+                    #player has no guesses remaining
+                    if session['lives'] < 1:
+                        return redirect('/game_ended')
+                        
+                    session['ingame'] = True
+                    return redirect('/game')
 
             #user has not yet submitted feedback
             else:
