@@ -13,7 +13,7 @@ def game():
             #user has submitted feedback
             if 'wordguess' in request.form:
                 wordguess = request.form['wordguess']
-
+                
                 #user has guessed the word correctly
                 if wordguess == session.pop('word'):
                     session['ingame'] = True
