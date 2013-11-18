@@ -1,11 +1,12 @@
-from flask import Flask, render_template, redirect, request, flash
+from flask import Flask, render_template, redirect, request, flash, session
 from vocabchallenge import app, database
 
 @app.route('/feedback', methods=('post', 'get'))
 def feedback():
+    session.pop('ingame', None)
     if 'feedback' in request.form:
         feedback = request.form['feedback']
-        database.feedback('testee', '123', feedback)
+        database.feedback(session['username'], session['userid'], feedback)
         flash('Thank you for your feedback.')
         
 

@@ -10,9 +10,17 @@ def disconnect_db():
     g.database.commit()
     g.database.close()
 
+def create_user():
+    g.database.rollback()
+    #other stuff
+    session['username'] = 'roflpop'
+    session['userid'] = 0
+
 @app.before_request
 def before_request():
     g.database = connect_db()
+    #create a new user here if necessary
+    create_user()
 
 @app.teardown_request
 def teardown_request(exception):

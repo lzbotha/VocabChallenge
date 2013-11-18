@@ -2,14 +2,12 @@ from flask import Flask, render_template, redirect, request, session
 from vocabchallenge import app, database
 
 @app.route('/game', methods=('post', 'get'))
-def game():
-    
+def game():    
     #if the player is currently in a game
     if session.pop('ingame',False):
 
         #word and definition retrieved from database
         if 'word' in session:
-
 
             #user has submitted feedback
             if 'wordguess' in request.form:
@@ -49,4 +47,6 @@ def game():
         session['ingame'] = True
         session['score'] = 0
         session['lives'] = 3
+        #so each new quiz starts with a new word
+        session.pop('word', None)
         return redirect('/game')
