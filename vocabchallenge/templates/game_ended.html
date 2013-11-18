@@ -3,7 +3,13 @@
 	leader board flash like places moved up/down<br>
 
 	You Lost! but say this nicely<br>
-	New highscore, if they got one<br>
+	{% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color: rgb(220, 0, 0); "><b>{{ message }}</b></p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 	Score: {{ score }}<br>
 	Longest word:<br>
 	Hints used:<br>
