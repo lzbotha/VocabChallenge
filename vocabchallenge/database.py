@@ -30,4 +30,16 @@ def get_entry(difficulty):
     cur.close()
     return (word, definition)
 
+def insert_game(username, userid, score, hints):
+    cur = g.database.cursor()
+    cur.execute('INSERT INTO games (userid, username, score, hints) VALUES(%s,%s,%s,%s)',(userid,username,score,hints))
+    cur.close()
+
+def get_highscore(userid):
+    cur = g.database.cursor()
+    cur.execute('SELECT MAX(score) FROM games WHERE userid = %s', [userid])
+    highscore = cur.fetchone()
+    cur.close()
+    return highscore[0]
+
 # http://toolserver.org/~enwikt/definitions/ wikitionary definition dump
