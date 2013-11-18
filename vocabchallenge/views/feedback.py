@@ -6,7 +6,7 @@ def feedback():
     session.pop('ingame', None)
     if 'feedback' in request.form:
         feedback = request.form['feedback']
-        database.feedback(session['username'], session['userid'], feedback)
+        database.feedback(session['userid'], feedback)
         flash('Thank you for your feedback.')
         
 

@@ -26,9 +26,9 @@ def before_request():
 def teardown_request(exception):
     disconnect_db()
 
-def feedback(username, userid, feedback):
+def feedback(userid, feedback):
     cur = g.database.cursor()
-    cur.execute('INSERT INTO feedback (datetime,username,userid,feedback) VALUES(\'now\',%s,%s,%s)',(username,userid,feedback))
+    cur.execute('INSERT INTO feedback (datetime,userid,feedback) VALUES(\'now\',%s,%s)',(userid,feedback))
     cur.close()
 
 def get_entry(difficulty):
@@ -38,21 +38,21 @@ def get_entry(difficulty):
     cur.close()
     return (word, definition)
 
-def insert_game(username, userid, score, hints):
+def insert_game(userid, score):
     cur = g.database.cursor()
-    cur.execute('INSERT INTO games (userid, username, score, hints) VALUES(%s,%s,%s,%s)',(userid,username,score,hints))
+    cur.execute('INSERT INTO scores (userid, score) VALUES(%s,%s)',(userid,score))
     cur.close()
 
 def get_highscore(userid):
     cur = g.database.cursor()
-    cur.execute('SELECT MAX(score) FROM games WHERE userid = %s', [userid])
+    cur.execute('SELECT MAX(score) FROM scores WHERE userid = %s', [userid])
     highscore = cur.fetchone()
     cur.close()
     return highscore[0]
 
 def get_top(x):
     cur = g.database.cursor()
-    cur.execute('SELECT username, SUM(score) FROM games GROUP BY username LIMIT %s', [x])
+    cur.execute('SELECT users.username, SUM(scores.score) FROM scores, users GROUP BY users.username LIMIT %s', [x])
     topx = [dict(username=row[0], score=row[1]) for row in cur.fetchall()]
     cur.close()
     return topx
