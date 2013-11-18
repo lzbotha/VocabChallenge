@@ -42,4 +42,11 @@ def get_highscore(userid):
     cur.close()
     return highscore[0]
 
+def get_top(x):
+    cur = g.database.cursor()
+    cur.execute('SELECT username, SUM(score) FROM games GROUP BY username LIMIT %s', [x])
+    topx = [dict(username=row[0], score=row[1]) for row in cur.fetchall()]
+    cur.close()
+    return topx
+
 # http://toolserver.org/~enwikt/definitions/ wikitionary definition dump

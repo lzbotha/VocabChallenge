@@ -1,4 +1,10 @@
 {% extends "template.html" %}
 {% block body %}
 	<h1>LEADERBOARDS</h1>
+
+    {% for entry in top10 %}
+        <li><h2>{{ entry.username }}   {{ entry.score }}</h2>
+    {% else %}
+        <li><em>Unbelievable.  No entries here so far</em>
+    {% endfor %}
 {% endblock %}
