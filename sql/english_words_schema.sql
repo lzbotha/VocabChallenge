@@ -1,4 +1,5 @@
 create table english_words(
-    word VARCHAR PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
+    word VARCHAR NOT NULL,
     definition TEXT NOT NULL
 );

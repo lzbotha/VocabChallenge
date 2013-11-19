@@ -34,13 +34,13 @@ def feedback(userid, feedback):
 def get_entry(language):
     cur = g.database.cursor()
     if language=='english':
-        cur.execute('SELECT * FROM english_words ORDER BY RANDOM() LIMIT 1')
+        cur.execute('SELECT word, definition FROM english_words ORDER BY RANDOM() LIMIT 1')
     elif language=='afrikaans':
-        cur.execute('SELECT * FROM afrikaans_words ORDER BY RANDOM() LIMIT 1')
+        cur.execute('SELECT word, definition FROM afrikaans_words ORDER BY RANDOM() LIMIT 1')
     elif language=='french':
-        cur.execute('SELECT * FROM french_words ORDER BY RANDOM() LIMIT 1')
+        cur.execute('SELECT word, definition FROM french_words ORDER BY RANDOM() LIMIT 1')
     elif language=='german':
-        cur.execute('SELECT * FROM german_words ORDER BY RANDOM() LIMIT 1')
+        cur.execute('SELECT word, definition FROM german_words ORDER BY RANDOM() LIMIT 1')
     #make it default to English so nothing strange happens
     else:
         cur.execute('SELECT * FROM words ORDER BY RANDOM() LIMIT 1')
