@@ -34,9 +34,9 @@ def feedback(userid, feedback):
 def get_entry(langauge):
     cur = g.database.cursor()
     if langauge=='english':
-        cur.execute('SELECT * FROM words ORDER BY RANDOM() LIMIT 1')
+        cur.execute('SELECT * FROM english_words ORDER BY RANDOM() LIMIT 1')
     elif langauge=='afrikaans':
-        cur.execute('SELECT * FROM words ORDER BY RANDOM() LIMIT 1')
+        cur.execute('SELECT * FROM afrikaans_words ORDER BY RANDOM() LIMIT 1')
     #make it default to English so nothing strange happens
     else:
         cur.execute('SELECT * FROM words ORDER BY RANDOM() LIMIT 1')
@@ -45,9 +45,9 @@ def get_entry(langauge):
     cur.close()
     return (word, definition)
 
-def insert_game(userid, score):
+def insert_score(userid, language, score):
     cur = g.database.cursor()
-    cur.execute('INSERT INTO scores (userid, score) VALUES(%s,%s)',(userid,score))
+    cur.execute('INSERT INTO scores (userid, language, score) VALUES(%s,%s,%s)',(userid,language,score))
     cur.close()
 
 def get_highscore(userid):
