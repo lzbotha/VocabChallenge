@@ -4,4 +4,4 @@ from vocabchallenge import app
 @app.route('/')
 def index():
     session.pop('ingame', None)
-    return render_template('index.html')
+    return render_template('index.html',username=session['username'])
