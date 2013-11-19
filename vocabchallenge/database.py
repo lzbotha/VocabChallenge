@@ -31,12 +31,16 @@ def feedback(userid, feedback):
     cur.execute('INSERT INTO feedback (datetime,userid,feedback) VALUES(\'now\',%s,%s)',(userid,feedback))
     cur.close()
 
-def get_entry(langauge):
+def get_entry(language):
     cur = g.database.cursor()
-    if langauge=='english':
+    if language=='english':
         cur.execute('SELECT * FROM english_words ORDER BY RANDOM() LIMIT 1')
-    elif langauge=='afrikaans':
+    elif language=='afrikaans':
         cur.execute('SELECT * FROM afrikaans_words ORDER BY RANDOM() LIMIT 1')
+    elif language=='french':
+        cur.execute('SELECT * FROM french_words ORDER BY RANDOM() LIMIT 1')
+    elif language=='german':
+        cur.execute('SELECT * FROM german_words ORDER BY RANDOM() LIMIT 1')
     #make it default to English so nothing strange happens
     else:
         cur.execute('SELECT * FROM words ORDER BY RANDOM() LIMIT 1')

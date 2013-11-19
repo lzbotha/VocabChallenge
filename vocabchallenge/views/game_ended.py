@@ -5,8 +5,6 @@ from vocabchallenge import app, database
 def game_ended():
     #this needs to query the database for a users past scores and shit
 
-    print session['language']+'<----------------------------------------------------------------------- this one this is whats up'
-
     highscore = database.get_highscore(session['userid'])
     database.insert_score(session['userid'], session['language'] ,session['score'])
     if session['score'] > highscore:
