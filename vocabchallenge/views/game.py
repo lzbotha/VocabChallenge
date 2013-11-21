@@ -28,7 +28,12 @@ def game(lang):
                 #user has incorrectly guessed the word
                 else:
                     session['lives'] -= 1
-                    flash('Incorrect, the correct answer was: '+session['word'])
+
+                    #tell the user if they are entering the wrong input
+                    if 0<=wordguess<=3:
+                        flash('Incorrect, the correct answer was: '+session['word'])
+                    else:
+                        flash('Please only enter numbers between 1-4')
                     #player has no guesses remaining
                     if session['lives'] < 1:
                         return redirect('/game_ended')
