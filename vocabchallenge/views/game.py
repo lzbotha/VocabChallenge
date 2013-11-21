@@ -1,5 +1,6 @@
-from flask import Flask, render_template, redirect, request, session
+from flask import Flask, render_template, redirect, request, session, flash
 from vocabchallenge import app, database
+import random
 
 @app.route('/game/<lang>', methods=('post', 'get'))
 def game(lang):
@@ -8,14 +9,18 @@ def game(lang):
     if session.pop('ingame',False):
 
         #word and definition retrieved from database
-        if 'word' in session:
+        if 'wordnum' in session:
 
             #user has submitted feedback
             if 'wordguess' in request.form:
-                wordguess = request.form['wordguess']
-                
+                try:
+                    wordguess = int(request.form['wordguess']) - 1
+                except ValueError:
+                    wordguess = -1
+
                 #user has guessed the word correctly
-                if wordguess == session.pop('word'):
+                if wordguess == session.pop('wordnum'):
+                    flash('Correct!')
                     session['ingame'] = True
                     session['score'] += 1
                     return redirect('/game/'+lang)
@@ -23,24 +28,28 @@ def game(lang):
                 #user has incorrectly guessed the word
                 else:
                     session['lives'] -= 1
-
+                    flash('Incorrect, the correct answer was: '+session['word'])
                     #player has no guesses remaining
                     if session['lives'] < 1:
                         return redirect('/game_ended')
-                        
                     session['ingame'] = True
                     return redirect('/game/'+lang)
 
             #user has not yet submitted feedback
             else:
                 session['ingame'] = True
-                return render_template('game.html', word=session['word'], definition=session['definition'], lang=lang)
+                return render_template('game.html', word=session['word'], words=session['words'], definition=session['definition'], lang=lang)
         
         #word and definition not yet retrieved from database
         else:
             session['ingame'] = True
             session['word'], session['definition'] = database.get_entry(lang)
-            return render_template('game.html', word=session['word'], definition=session['definition'], lang=lang)
+            session['words'] = database.get_padding_words(lang, session['word'] ,3)
+
+            session['wordnum'] = int(round(random.uniform(0,3)))
+
+            session['words'].insert(session['wordnum'] ,session['word'])
+            return render_template('game.html', word=session['word'], words=session['words'], definition=session['definition'], lang=lang)
 
     #if the player is not yet in a game initialize variables for a new game
     else:
@@ -51,4 +60,5 @@ def game(lang):
         session['lives'] = 3
         #so each new quiz starts with a new word
         session.pop('word', None)
+        session.pop('wordnum', None)
         return redirect('/game/'+lang)

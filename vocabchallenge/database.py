@@ -43,11 +43,51 @@ def get_entry(language):
         cur.execute('SELECT word, definition FROM german_words ORDER BY RANDOM() LIMIT 1')
     #make it default to English so nothing strange happens
     else:
-        cur.execute('SELECT * FROM words ORDER BY RANDOM() LIMIT 1')
+        cur.execute('SELECT word, definition FROM english_words ORDER BY RANDOM() LIMIT 1')
     
     word, definition = cur.fetchone()
     cur.close()
     return (word, definition)
+
+def get_padding_words(language, word, num):
+    cur = g.database.cursor()
+    if language=='english':
+        cur.execute('SELECT word FROM english_words WHERE word!=%s ORDER BY RANDOM() LIMIT %s', [word,num])
+    elif language=='afrikaans':
+        cur.execute('SELECT word FROM afrikaans_words WHERE word!=%s ORDER BY RANDOM() LIMIT %s', [word,num])
+    elif language=='french':
+        cur.execute('SELECT word FROM french_words WHERE word!=%s ORDER BY RANDOM() LIMIT %s', [word,num])
+    elif language=='german':
+        cur.execute('SELECT word FROM german_words WHERE word!=%s ORDER BY RANDOM() LIMIT %s', [word,num])
+    #make it default to English so nothing strange happens
+    else:
+        cur.execute('SELECT word FROM english_words WHERE word!=%s ORDER BY RANDOM() LIMIT %s', [word,num])
+
+    words = [row[0] for row in cur.fetchall()]
+    cur.close()
+    return words
+
+def get_userid(username):
+    cur = g.database.cursor()
+    cur.execute('SELECT id FROM users WHERE username=%s LIMIT 1', [username])
+    userid = cur.fetchone()[0]
+    cur.close()
+    return userid
+
+def get_num_games(userid):
+    cur = g.database.cursor()
+    cur.execute('SELECT COUNT(*) FROM scores WHERE userid=%s', [userid])
+    games = cur.fetchone()[0]
+    cur.close()
+    return games
+
+def get_breakdown(userid):
+    cur = g.database.cursor()
+    cur.execute('SELECT language, MAX(score) AS highscore, count(*) as games_played FROM scores WHERE userid=%s GROUP BY language', [userid])
+    breakdown = [dict(language=row[0], highscore=row[1], games_played=row[2]) for row in cur.fetchall()]
+    cur.close()
+
+    return None
 
 def insert_score(userid, language, score):
     cur = g.database.cursor()

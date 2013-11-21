@@ -1,11 +1,25 @@
 {% extends "template.html" %}
 {% block body %}
+    
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color: rgb(220, 0, 0); "><b>{{ message }}</b></p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
     <p>{{ word }}</p>
     
     <p><b>Definition/English word:</b></p>
     <p>{{ definition }}</p>
 
-    <p>Guess the word twat</p>
+    <b>Pick the answer (enter the number only)</b><br>
+    <ol>
+        {% for w in words %}
+        <li>{{ w }}</li>
+        {% endfor %}
+    </ol>
     
     <form action="/game/{{ lang }}" method="post">
         <textarea name="wordguess"></textarea>
