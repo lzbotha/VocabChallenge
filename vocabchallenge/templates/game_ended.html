@@ -1,7 +1,5 @@
 <!doctype html>
 <html>
-	leader board flash like places moved up/down<br>
-
 	You Lost! but say this nicely<br>
 	{% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -10,9 +8,7 @@
             {% endfor %}
         {% endif %}
     {% endwith %}
-	Score: {{ score }}<br>
-	Longest word:<br>
-	Hints used:<br>
+	<p>Score: {{ score }}</p>
 	<a href="/">Home</a>
 	
 </html>

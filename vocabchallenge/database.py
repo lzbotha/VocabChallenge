@@ -46,6 +46,7 @@ def get_entry(language):
         cur.execute('SELECT word, definition FROM english_words ORDER BY RANDOM() LIMIT 1')
     
     word, definition = cur.fetchone()
+    word, definition = word.decode('utf-8'), definition.decode('utf-8')
     cur.close()
     return (word, definition)
 
@@ -63,7 +64,7 @@ def get_padding_words(language, word, num):
     else:
         cur.execute('SELECT word FROM english_words WHERE word!=%s ORDER BY RANDOM() LIMIT %s', [word,num])
 
-    words = [row[0] for row in cur.fetchall()]
+    words = [row[0].decode('utf-8') for row in cur.fetchall()]
     cur.close()
     return words
 
@@ -102,7 +103,7 @@ def get_highscore(userid):
 
 def get_top(x):
     cur = g.database.cursor()
-    cur.execute('SELECT users.username, MAX(scores.score) AS highscore FROM scores, users GROUP BY users.username ORDER BY highscore DESC LIMIT %s', [x])
+    cur.execute('SELECT users.username, MAX(scores.score) AS highscore FROM scores, users WHERE users.id=scores.userid GROUP BY users.username ORDER BY highscore DESC LIMIT %s', [x])
     topx = [dict(username=row[0], score=row[1]) for row in cur.fetchall()]
     cur.close()
     return topx
