@@ -6,6 +6,12 @@
 	<p>Highest Score: {{ highscore }}</p>
 	<br>
 	<b>Breakdown</b>
-	<p>Longest Streak:</p>
-	<p>Longest Word:</p>
+
+    {% for entry in breakdown %}
+        <p><b>{{ entry.language }}</b></p>
+        <p>Games Played: {{ entry.games_played }}</p>
+        <p>Highest Score: {{ entry.highscore }}</p>
+    {% else %}
+        <p>No games played yet</p>
+    {% endfor %}
 {% endblock %}

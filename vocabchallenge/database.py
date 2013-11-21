@@ -86,8 +86,7 @@ def get_breakdown(userid):
     cur.execute('SELECT language, MAX(score) AS highscore, count(*) as games_played FROM scores WHERE userid=%s GROUP BY language', [userid])
     breakdown = [dict(language=row[0], highscore=row[1], games_played=row[2]) for row in cur.fetchall()]
     cur.close()
-
-    return None
+    return breakdown
 
 def insert_score(userid, language, score):
     cur = g.database.cursor()
@@ -103,7 +102,7 @@ def get_highscore(userid):
 
 def get_top(x):
     cur = g.database.cursor()
-    cur.execute('SELECT users.username, SUM(scores.score) FROM scores, users GROUP BY users.username LIMIT %s', [x])
+    cur.execute('SELECT users.username, MAX(scores.score) AS highscore FROM scores, users GROUP BY users.username ORDER BY highscore DESC LIMIT %s', [x])
     topx = [dict(username=row[0], score=row[1]) for row in cur.fetchall()]
     cur.close()
     return topx
