@@ -11,7 +11,7 @@ def disconnect_db():
     g.database.close()
 
 def create_user():
-    g.database.rollback()
+    #g.database.rollback()
     #other stuff
     session['username'] = 'roflpop'
     session['userid'] = 0
@@ -25,6 +25,7 @@ def before_request():
 @app.teardown_request
 def teardown_request(exception):
     #disconnect_db()
+    print 'teardown'
 
 def feedback(userid, feedback):
     cur = g.database.cursor()
