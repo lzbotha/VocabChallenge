@@ -1,4 +1,18 @@
-import vocabchallenge
+from raven.contrib.flask import Sentry
+
+from tornado.wsgi import WSGIContainer
+from tornado.httpserver import HTTPServer
+from tornado.ioloop import IOLoop
+
+from vocabchallenge import config, app
 
 if __name__ == '__main__':
-    vocabchallenge.app.run()
+
+    if app.config['SENTRY_ENABLED']:
+        sentry = Sentry(app, dsn=app.config['DATABASE_NAME'])
+
+    #app.run()
+    print 'Running in production mode'
+    http_server = HTTPServer(WSGIContainer(app))
+    http_server.listen(8080)
+    IOLoop.instance().start()

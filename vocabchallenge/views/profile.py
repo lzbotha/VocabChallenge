@@ -7,7 +7,6 @@ def profile(username):
     games_played = database.get_num_games(userid)
     highscore = database.get_highscore(userid)
     breakdown = database.get_breakdown(userid)
-    print breakdown
     return render_template('profile.html', 
                             username=username,
                             games_played=games_played,
