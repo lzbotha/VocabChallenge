@@ -18,13 +18,13 @@ def create_user():
 
 @app.before_request
 def before_request():
-    g.database = connect_db()
+    #g.database = connect_db()
     #create a new user here if necessary
     create_user()
 
 @app.teardown_request
 def teardown_request(exception):
-    disconnect_db()
+    #disconnect_db()
 
 def feedback(userid, feedback):
     cur = g.database.cursor()
