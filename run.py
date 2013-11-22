@@ -13,6 +13,7 @@ if __name__ == '__main__':
 
     #app.run()
     print 'Running in production mode'
-    http_server = HTTPServer(WSGIContainer(app))
+    app.run(debug=True, host='0.0.0.0', port=args.port, use_debugger=True)
+    '''http_server = HTTPServer(WSGIContainer(app))
     http_server.listen(8080)
-    IOLoop.instance().start()
+    IOLoop.instance().start()'''
