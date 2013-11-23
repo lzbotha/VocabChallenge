@@ -1,0 +1,12 @@
+Flask==0.9
+Jinja2==2.6
+Werkzeug==0.8.3
+blinker==1.2
+httplib2==0.8
+psycopg2==2.4.6
+raven==3.1.17
+requests==1.1.0
+simplejson==3.1.0
+tornado==2.4.1
+wsgiref==0.1.2
+statsd
