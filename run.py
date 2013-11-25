@@ -12,7 +12,7 @@ if __name__ == '__main__':
     #     sentry = Sentry(app, dsn=app.config['DATABASE_NAME'])
 
     app.run()
-    print 'Running in production mode'
+    # print 'Running in production mode'
 
     #figure out argparser you lazy twat
 
