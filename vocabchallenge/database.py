@@ -3,7 +3,7 @@ from flask import g, request, session
 from vocabchallenge import app
 
 def connect_db():
-    database = psycopg2.connect('dbname=%s host=%s user=%s' % (app.config['DATABASE_NAME'], app.config['DATABASE_HOST'] , app.config['DATABASE_USER']))
+    database = psycopg2.connect('dbname=%s user=%s' % (app.config['DATABASE_NAME'], app.config['DATABASE_USER']))
     return database
 
 def disconnect_db():
