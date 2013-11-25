@@ -1,4 +1,5 @@
 import psycopg2
+from vocabchallenge import config
 
 db = psycopg2.connect('dbname=%s user=%s' % (config.DATABASE_NAME, config.DATABASE_USER))
 
