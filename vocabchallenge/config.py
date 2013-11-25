@@ -2,7 +2,7 @@
 # configuration
 DATABASE_HOST = 'localhost'
 DATABASE_USER = 'mxitapps'
-DATABASE_PASSWORD = ''
+DATABASE_PASSWORD = 'test123'
 DATABASE_NAME = 'vocabchallenge'
 DEBUG = True
 SECRET_KEY = 'development key'
