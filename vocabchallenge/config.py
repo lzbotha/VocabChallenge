@@ -1,7 +1,7 @@
 
 # configuration
 DATABASE_HOST = 'localhost'
-DATABASE_USER = 'bzl'
+DATABASE_USER = 'mxitapps'
 DATABASE_PASSWORD = ''
 DATABASE_NAME = 'vocabchallenge'
 DEBUG = True
