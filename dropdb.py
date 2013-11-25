@@ -4,7 +4,7 @@ import sys
 print 'Are you sure this is what you want to do? Say YES to confirm'
 if raw_input() != 'YES':
     sys.exit()
-db = psycopg2.connect('user=%s' % config.database_user)
+db = psycopg2.connect('dbname=%s user=%s' % (config.DATABASE_NAME, config.DATABASE_USER))
 
 c = db.cursor()
 

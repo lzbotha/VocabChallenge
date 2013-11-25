@@ -3,7 +3,7 @@ from flask import g, request, session
 from vocabchallenge import app
 
 def connect_db():
-    database = psycopg2.connect('dbname=%s host=%s user=%s password=%s' % (app.config['DATABASE_NAME'], 'localhost' , app.config['DATABASE_USER'], 'test123'))
+    database = psycopg2.connect('dbname=%s host=%s user=%s password=%s' % (app.config['DATABASE_NAME'], app.config['DATABASE_HOST'] , app.config['DATABASE_USER'], app.config['DATABASE_PASSWORD']))
     return database
 
 def disconnect_db():
@@ -11,21 +11,21 @@ def disconnect_db():
     g.database.close()
 
 def create_user():
-    #g.database.rollback()
+    g.database.rollback()
     #other stuff
     session['username'] = 'roflpop'
     session['userid'] = 0
+    g.database.commit()
 
 @app.before_request
 def before_request():
-    #g.database = connect_db()
+    g.database = connect_db()
     #create a new user here if necessary
     create_user()
 
 @app.teardown_request
 def teardown_request(exception):
-    #disconnect_db()
-    print 'teardown'
+    disconnect_db()
 
 def feedback(userid, feedback):
     cur = g.database.cursor()
