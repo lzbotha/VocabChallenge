@@ -2,7 +2,7 @@ import psycopg2
 from vocabchallenge import config
 
 
-database = psycopg2.connect('dbname=%s user=%S'%(config.DATABASE_NAME, config.DATABASE_USER))
+database = psycopg2.connect('dbname=%s user=%s'%(config.DATABASE_NAME, config.DATABASE_USER))
 f1 = open('vocabchallenge/dictionaries/english_dictionary_v1.tsv','r')
 f2 = open('vocabchallenge/dictionaries/afrikaans_dictionary_v1.tsv','r')
 f3 = open('vocabchallenge/dictionaries/german_dictionary_v1.tsv','r')
