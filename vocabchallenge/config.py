@@ -8,4 +8,4 @@ DEBUG = True
 SECRET_KEY = 'development key'
 SENTRY_DSN = ''
 SENTRY_ENABLED = False
-PORT = 8080
+PORT = 80
