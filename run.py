@@ -18,5 +18,5 @@ if __name__ == '__main__':
 
     # app.run(debug=True, host='0.0.0.0', port=args.port, use_debugger=True)
     http_server = HTTPServer(WSGIContainer(app))
-    http_server.listen(config.PORT , address='0.0.0.0')
+    http_server.listen(config.PORT , address='162.243.26.28')
     IOLoop.instance().start()
