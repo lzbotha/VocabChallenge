@@ -1,8 +1,8 @@
 import psycopg2
 
-from mathquiz import config, SCHEMA_VERSION
+from vocabchallenge import config
 
-db = psycopg2.connect('user=%s' % config.database_user)
+db = psycopg2.connect('user=%s dbname=%s' % (config.DATABASE_USER, config.DATABASE_NAME))
 
 c = db.cursor()
 

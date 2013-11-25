@@ -8,8 +8,8 @@ from vocabchallenge import config, app
 
 if __name__ == '__main__':
 
-    if app.config['SENTRY_ENABLED']:
-        sentry = Sentry(app, dsn=app.config['DATABASE_NAME'])
+    # if app.config['SENTRY_ENABLED']:
+    #     sentry = Sentry(app, dsn=app.config['DATABASE_NAME'])
 
     app.run()
     print 'Running in production mode'
