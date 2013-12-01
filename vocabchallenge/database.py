@@ -54,7 +54,7 @@ def get_entry(language):
     else:
         cur.execute('SELECT word, definition FROM english_words ORDER BY RANDOM() LIMIT 1')
     
-    word, definition = cur.fetchone()
+    word, definition, randomvar = cur.fetchone()
     word, definition = word.decode('utf-8'), definition.decode('utf-8')
     cur.close()
     return (word, definition)
