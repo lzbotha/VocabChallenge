@@ -39,9 +39,9 @@ def create_user():
         mxit_id = request.headers['X-Mxit-Userid-R']
         mxit_nick = request.headers['X-Mxit-Nick']
     except KeyError:
-        mxit_user_id = 0  # development id
+        mxit_id = 0  # development id
         mxit_nick = 'roflpop'
-    haveUser = set_user(mxit_user_id)
+    haveUser = set_user(mxit_id)
     if not haveUser:
         try:
             c = g.database.cursor()
