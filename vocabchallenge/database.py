@@ -10,19 +10,52 @@ def disconnect_db():
     g.database.commit()
     g.database.close()
 
+# def create_user():
+#     g.database.rollback()
+#     #other stuff
+#     session['username'] = 'roflpop'
+#     session['userid'] = 0
+#     g.database.commit()
+
+def set_user(mxit_id):
+    try:
+        c = g.database.cursor()
+        print 'made cursor'
+        c.execute('SELECT id, username FROM users WHERE mxit_id = %s LIMIT 1', (str(mxit_id), ))
+        print 'querried database'
+        session['userid'], session['username'] = c.fetchone()
+        print 'assigned values to session'
+    except TypeError:
+        print 'TypeError'
+        return False
+    finally:
+        c.close()
+    return True
+
+
 def create_user():
     g.database.rollback()
-    #other stuff
     try:
-        mxit_user_id = request.headers['X-Mxit-Userid-R']
+        mxit_id = request.headers['X-Mxit-Userid-R']
         mxit_nick = request.headers['X-Mxit-Nick']
-        print mxit_user_id
-        print mxit_nick
     except KeyError:
-        mxit_user_id = -1  # development id
-        mxit_nick = 'Yasen'
-    session['username'] = 'roflpop'
-    session['userid'] = 0
+        mxit_user_id = 0  # development id
+        mxit_nick = 'roflpop'
+    haveUser = set_user(mxit_user_id)
+    if not haveUser:
+        try:
+            c = g.database.cursor()
+            c.execute('SELECT max(id)+1 FROM users')
+            userid = c.fetchone()[0]
+            if not userid:
+                userid = 0
+            c.execute('INSERT INTO users (id, mxit_id, username, joined) VALUES (%s, %s, %s, NOW())', (userid, mxit_id, mxit_nick))
+            session['userid'] = userid
+            session['username'] = mxit_nick
+            g.database.commit()
+        finally:
+            c.close()
+
     g.database.commit()
 
 @app.before_request
@@ -54,7 +87,7 @@ def get_entry(language):
     else:
         cur.execute('SELECT word, definition FROM english_words ORDER BY RANDOM() LIMIT 1')
     
-    word, definition, randomvar = cur.fetchone()
+    word, definition = cur.fetchone()
     word, definition = word.decode('utf-8'), definition.decode('utf-8')
     cur.close()
     return (word, definition)
