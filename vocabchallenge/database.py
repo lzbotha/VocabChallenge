@@ -13,6 +13,14 @@ def disconnect_db():
 def create_user():
     g.database.rollback()
     #other stuff
+    try:
+        mxit_user_id = request.headers['X-Mxit-Userid-R']
+        mxit_nick = request.headers['X-Mxit-Nick']
+        print mxit_user_id
+        print mxit_nick
+    except KeyError:
+        mxit_user_id = -1  # development id
+        mxit_nick = 'Yasen'
     session['username'] = 'roflpop'
     session['userid'] = 0
     g.database.commit()
