@@ -10,23 +10,13 @@ def disconnect_db():
     g.database.commit()
     g.database.close()
 
-# def create_user():
-#     g.database.rollback()
-#     #other stuff
-#     session['username'] = 'roflpop'
-#     session['userid'] = 0
-#     g.database.commit()
-
 def set_user(mxit_id):
     try:
         c = g.database.cursor()
-        print 'made cursor'
         c.execute('SELECT id, username FROM users WHERE mxit_id = %s LIMIT 1', (str(mxit_id), ))
-        print 'querried database'
+        #if there are no values in query fetchone returns None, which is a type mismatch as a tuple is expected
         session['userid'], session['username'] = c.fetchone()
-        print 'assigned values to session'
     except TypeError:
-        print 'TypeError'
         return False
     finally:
         c.close()
@@ -39,7 +29,7 @@ def create_user():
         mxit_id = request.headers['X-Mxit-Userid-R']
         mxit_nick = request.headers['X-Mxit-Nick']
     except KeyError:
-        mxit_id = 0  # development id
+        mxit_id = -1  # development id
         mxit_nick = 'roflpop'
     haveUser = set_user(mxit_id)
     if not haveUser:
