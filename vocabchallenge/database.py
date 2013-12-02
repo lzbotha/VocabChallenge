@@ -136,14 +136,14 @@ def get_highscore(userid):
 def get_top(x):
     cur = g.database.cursor()
     cur.execute('SELECT users.username, MAX(scores.score) AS highscore FROM scores, users WHERE users.id=scores.userid GROUP BY users.username ORDER BY highscore DESC LIMIT %s', [x])
-    topx = [dict(username=row[0], score=row[1] for row in cur.fetchall()]
+    topx = [dict(username=row[0], score=row[1]) for row in cur.fetchall()]
     cur.close()
     return topx
 
 def get_top(x,language):
     cur = g.database.cursor()
     cur.execute('SELECT users.username, MAX(scores.score) AS highscore FROM scores, users WHERE users.id=scores.userid AND scores.language=%s GROUP BY users.username ORDER BY highscore DESC LIMIT %s', (language,x))
-    topx = [dict(username=row[0], score=row[1] for row in cur.fetchall()]
+    topx = [dict(username=row[0], score=row[1]) for row in cur.fetchall()]
     cur.close()
     return topx
 
