@@ -140,7 +140,7 @@ def get_top(x):
     cur.close()
     return topx
 
-def get_top(x,language):
+def get_top_by_language(x,language):
     cur = g.database.cursor()
     cur.execute('SELECT users.username, MAX(scores.score) AS highscore FROM scores, users WHERE users.id=scores.userid AND scores.language=%s GROUP BY users.username ORDER BY highscore DESC LIMIT %s', (language,x))
     topx = [dict(username=row[0], score=row[1]) for row in cur.fetchall()]
