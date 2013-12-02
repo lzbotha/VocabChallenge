@@ -117,7 +117,7 @@ def get_num_games(userid):
 def get_breakdown(userid):
     cur = g.database.cursor()
     cur.execute('SELECT language, MAX(score) AS highscore, count(*) as games_played FROM scores WHERE userid=%s GROUP BY language', [userid])
-    breakdown = [dict(language=row[0], highscore=row[1], games_played=row[2]) for row in cur.fetchall()]
+    breakdown = [dict(language=row[0].capitalize(), highscore=row[1], games_played=row[2]) for row in cur.fetchall()]
     cur.close()
     return breakdown
 
