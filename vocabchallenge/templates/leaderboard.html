@@ -4,7 +4,7 @@
         <h1>Leaderboard - {{ language }}</h1>
     {% else %}
         <h1>Leaderboard - Top</h1>
-    {% end if %}
+    {% endif %}
     <!-- Do this in a better way -->
     <a href="/leaderboard/english">English</a> <a href="/leaderboard/afrikaans">Afrikaans</a> <a href="/leaderboard/german">German</a> <a href="/leaderboard/french">French</a>
     {% for entry in top10 %}
