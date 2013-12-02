@@ -1,7 +1,7 @@
 {% extends "template.html" %}
 {% block body %}
-	<h1>LEADERBOARDS</h1>
-
+	<h1>Leaderboard</h1>
+    <a href="/leaderboard/english">English</a> <a href="/leaderboard/afrikaans">Afrikaans</a> <a href="/leaderboard/german">German</a> <a href="/leaderboard/french">French</a>
     {% for entry in top10 %}
         <li><p><a href="/profile/{{ entry.username }}">{{ entry.username }}</a>   {{ entry.score }}</p></li>
     {% else %}
