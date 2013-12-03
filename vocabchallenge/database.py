@@ -147,7 +147,7 @@ def get_highscore(userid):
 
 def get_top(x):
     cur = g.database.cursor()
-    cur.execute('SELECT users.username, MAX(scores.score) AS highscore, rank() FROM scores, users WHERE users.id=scores.userid GROUP BY users.username ORDER BY highscore DESC LIMIT %s', [x])
+    cur.execute('SELECT users.username, MAX(scores.score) AS highscore, rank() OVER (GROUP BY users.username ORDER BY highscore) FROM scores, users WHERE users.id=scores.userid DESC LIMIT %s', [x])
     topx = [dict(username=row[0], score=row[1], rank=row[2]) for row in cur.fetchall()]
     cur.close()
     return topx
