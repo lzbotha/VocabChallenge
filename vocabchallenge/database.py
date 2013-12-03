@@ -73,6 +73,12 @@ def get_entry(language):
         cur.execute('SELECT word, definition FROM french_words ORDER BY RANDOM() LIMIT 1')
     elif language=='german':
         cur.execute('SELECT word, definition FROM german_words ORDER BY RANDOM() LIMIT 1')
+    elif language=='spanish':
+        cur.execute('SELECT word, definition FROM spanish_words ORDER BY RANDOM() LIMIT 1')
+    elif language=='portuguese':
+        cur.execute('SELECT word, definition FROM portuguese_words ORDER BY RANDOM() LIMIT 1')
+    elif language=='italian':
+        cur.execute('SELECT word, definition FROM italian_words ORDER BY RANDOM() LIMIT 1')
     #make it default to English so nothing strange happens
     else:
         cur.execute('SELECT word, definition FROM english_words ORDER BY RANDOM() LIMIT 1')
@@ -92,6 +98,12 @@ def get_padding_words(language, word, num):
         cur.execute('SELECT word FROM french_words WHERE word!=%s ORDER BY RANDOM() LIMIT %s', [word,num])
     elif language=='german':
         cur.execute('SELECT word FROM german_words WHERE word!=%s ORDER BY RANDOM() LIMIT %s', [word,num])
+    elif language=='spanish':
+        cur.execute('SELECT word FROM spanish_words WHERE word!=%s ORDER BY RANDOM() LIMIT %s', [word,num])
+    elif language=='portuguese':
+        cur.execute('SELECT word FROM portuguese_words WHERE word!=%s ORDER BY RANDOM() LIMIT %s', [word,num])
+    elif language=='italian':
+        cur.execute('SELECT word FROM italian_words WHERE word!=%s ORDER BY RANDOM() LIMIT %s', [word,num])
     #make it default to English so nothing strange happens
     else:
         cur.execute('SELECT word FROM english_words WHERE word!=%s ORDER BY RANDOM() LIMIT %s', [word,num])
