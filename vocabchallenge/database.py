@@ -157,7 +157,7 @@ def get_top_by_language(x,language):
     cur = g.database.cursor()
     #cur.execute('SELECT users.username, scores.score AS highscore FROM scores, users WHERE users.id=scores.userid AND scores.language=%s ORDER BY highscore DESC LIMIT %s', (language,x))
     cur.execute('SELECT username, score, rank FROM (SELECT users.username AS username, scores.score AS score, RANK() OVER (ORDER BY score DESC) FROM scores, users WHERE users.id=scores.userid AND scores.language=%s) AS topX ORDER BY rank LIMIT %s', (language,x))
-    topx = [dict(username=row[0], score=row[1]) for row in cur.fetchall()]
+    topx = [dict(username=row[0], score=row[1], rank=row[2]) for row in cur.fetchall()]
     cur.close()
     return topx
 
