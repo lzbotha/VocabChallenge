@@ -52,6 +52,24 @@ try:
                 'definition TEXT NOT NULL'
                 ')')
 
+    c.execute('create table italian_words('
+                'id SERIAL PRIMARY KEY,'
+                'word VARCHAR NOT NULL,'
+                'definition TEXT NOT NULL'
+                ')')
+
+    c.execute('create table spanish_words('
+                'id SERIAL PRIMARY KEY,'
+                'word VARCHAR NOT NULL,'
+                'definition TEXT NOT NULL'
+                ')')
+
+    c.execute('create table portuguese_words('
+                'id SERIAL PRIMARY KEY,'
+                'word VARCHAR NOT NULL,'
+                'definition TEXT NOT NULL'
+                ')')
+
     db.commit()
 
 except psycopg2.ProgrammingError, e:

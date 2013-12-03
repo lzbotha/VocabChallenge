@@ -14,7 +14,9 @@ c.execute('drop table if exists german_words')
 c.execute('drop table if exists french_words')
 c.execute('drop table if exists english_words')
 c.execute('drop table if exists afrikaans_words')
-
+c.execute('drop table if exists italian_words')
+c.execute('drop table if exists spanish_words')
+c.execute('drop table if exists portuguese_words')
 c.close()
 db.commit()
 print 'Completed'
