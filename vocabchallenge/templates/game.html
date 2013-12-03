@@ -9,7 +9,7 @@
         {% endif %}
     {% endwith %}
     
-    <p><b>Definition/English word:</b>  chances:{{ lives }}</p>
+    <p><b>Definition/English word:</b></p>
     <p>{{ definition }}</p>
 
     <b>Pick the answer (enter the number only)</b><br>
@@ -23,4 +23,5 @@
         <textarea name="wordguess"></textarea>
         <input type="submit" />
     </form>
+    <p><b>chances:</b>   {{ lives }}</p>
 {% endblock %}
