@@ -43,7 +43,7 @@ def game(lang):
             #user has not yet submitted feedback
             else:
                 session['ingame'] = True
-                return render_template('game.html', words=session['words'], definition=session['definition'], lang=lang, lives=session['lives'])
+                return render_template('game.html', words=session['words'], definition=session['definition'], lang=lang, lives=session['lives'], score=session['score'])
         
         #word and definition not yet retrieved from database
         else:
@@ -54,7 +54,7 @@ def game(lang):
             session['wordnum'] = int(round(random.uniform(0,3)))
 
             session['words'].insert(session['wordnum'] ,session['word'])
-            return render_template('game.html', words=session['words'], definition=session['definition'], lang=lang, lives=session['lives'])
+            return render_template('game.html', words=session['words'], definition=session['definition'], lang=lang, lives=session['lives'], score=session['score'])
 
     #if the player is not yet in a game initialize variables for a new game
     else:
