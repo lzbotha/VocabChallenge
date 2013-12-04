@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, request, session, flash
-from vocabchallenge import app, database
+from vocabchallenge import app, database, mp
 import random
 
 @app.route('/game/<lang>', methods=('post', 'get'))
@@ -66,4 +66,5 @@ def game(lang):
         #so each new quiz starts with a new word
         session.pop('word', None)
         session.pop('wordnum', None)
+        mp.track(session['username'],'new game: '+lang)
         return redirect('/game/'+lang)
