@@ -1,5 +1,5 @@
 from flask import Flask, render_template, session
-from vocabchallenge import app, database
+from vocabchallenge import app, database, mp
 
 @app.route('/leaderboard/')
 @app.route('/leaderboard/<language>')
