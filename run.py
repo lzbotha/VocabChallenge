@@ -14,7 +14,6 @@ if __name__ == '__main__':
     # app.run()
     print 'Running in production mode'
 
-    # figure out argparser you lazy twat
 
     # app.run(debug=True, host='0.0.0.0', port=args.port, use_debugger=True)
     http_server = HTTPServer(WSGIContainer(app))
