@@ -114,7 +114,7 @@ def get_padding_words(language, word, num):
 
 def get_userid(username):
     cur = g.database.cursor()
-    cur.execute('SELECT id FROM users WHERE username=%s LIMIT 1', [username])
+    cur.execute('SELECT id FROM users WHERE username="%s" LIMIT 1', [username])
     userid = cur.fetchone()[0]
     cur.close()
     return userid

@@ -7,7 +7,7 @@
     {% endif %}
     
     {% for entry in top10 %}
-        <li><p>{{ entry.rank }})  <a href="/profile/{{ entry.username }}">{{ entry.username }}</a>    ({{ entry.score }})</p></li>
+        <li><p>{{ entry.rank }})  <a href="/profile/{{ entry.username | urlencode}}">{{ entry.username }}</a>    ({{ entry.score }})</p></li>
     {% else %}
         <li><p><em>Unbelievable.  No entries here so far</p></em>
     {% endfor %}
